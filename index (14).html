@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DesaDL.Official</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f9ff;
+            color: #333;
+        }
+        header {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        header img {
+            height: 50px;
+            vertical-align: middle;
+        }
+        main {
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        #pembayaran-section {
+            display: none;
+        }
+        .rekening {
+            background: #e6f0ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .rekening p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="https://i.ibb.co/ZBtbqVC/logo-desadl.png" alt="Logo DesaDL.Official">
+    <h2>DesaDL.Official - Jual Beli Diamond Lock</h2>
+</header>
+
+<main>
+    <div class="section" id="form-section">
+        <h3>Form Jual / Beli DL</h3>
+        <label>Nama Growtopia:</label>
+        <input type="text" id="nama" required>
+        
+        <label>World Growtopia:</label>
+        <input type="text" id="world" required>
+        
+        <label>No HP Pembeli:</label>
+        <input type="text" id="nohp" required>
+        
+        <label>Jenis Transaksi:</label>
+        <select id="jenis">
+            <option value="beli">Beli DL (Rp 2.600)</option>
+            <option value="jual">Jual DL (Rp 2.400)</option>
+        </select>
+        
+        <label>Jumlah DL:</label>
+        <input type="number" id="jumlah" oninput="hitungTotal()" required>
+        
+        <label>Total Harga (Rp):</label>
+        <input type="text" id="total" readonly>
+        
+        <button onclick="lanjutPembayaran()">Lanjut ke Pembayaran</button>
+    </div>
+
+    <div class="section" id="pembayaran-section">
+        <h3>Langkah Pembayaran</h3>
+        <p>Silakan transfer ke salah satu rekening di bawah ini:</p>
+        <div class="rekening">
+            <p><strong>DANA:</strong> 083821103983</p>
+            <p><strong>GoPay:</strong> 085232443263</p>
+            <p><strong>Mandiri:</strong> 1060018413875</p>
+            <p><strong>BRImo:</strong> 0051 0126 8017 503</p>
+            <p><strong>SeaBank:</strong> 901546407976</p>
+        </div>
+
+        <label>Upload Bukti Pembayaran:</label>
+        <input type="file" accept="image/*">
+        
+        <button onclick="alert('Pesanan telah diproses!')">Kirim Bukti dan Selesaikan</button>
+    </div>
+</main>
+
+<script>
+    function hitungTotal() {
+        const jumlah = document.getElementById('jumlah').value;
+        const jenis = document.getElementById('jenis').value;
+        const total = document.getElementById('total');
+        if (jenis === 'beli') {
+            total.value = jumlah * 2600;
+        } else {
+            total.value = jumlah * 2400;
+        }
+    }
+
+    function lanjutPembayaran() {
+        const nama = document.getElementById('nama').value.trim();
+        const world = document.getElementById('world').value.trim();
+        const nohp = document.getElementById('nohp').value.trim();
+        const jumlah = document.getElementById('jumlah').value;
+
+        if (!nama || !world || !nohp || jumlah <= 0) {
+            alert("Harap isi semua data dengan benar.");
+            return;
+        }
+
+        document.getElementById('form-section').style.display = 'none';
+        document.getElementById('pembayaran-section').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
