@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>DesaDL Official</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #f0f8ff;
+      color: #333;
+    }
+    header {
+      background-color: #007BFF;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+    }
+    .hidden {
+      display: none;
+    }
+    .logo {
+      width: 100px;
+      margin: 10px auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>DesaDL Official</h1>
+  <img src="https://i.ibb.co/zSw3LZ6/logo-desa.png" alt="Logo DesaDL" class="logo">
+</header>
+
+<div class="container" id="form-step-1">
+  <h2>Formulir Pemesanan</h2>
+  <label>Nama Growtopia:</label>
+  <input type="text" id="gtName" required>
+  
+  <label>World Growtopia:</label>
+  <input type="text" id="gtWorld" required>
+
+  <label>No HP (WA):</label>
+  <input type="number" id="phone" required>
+
+  <label>Jumlah DL:</label>
+  <input type="number" id="jumlah" oninput="updateHarga()" required>
+
+  <label>Pilih Metode:</label>
+  <select id="metode" required>
+    <option value="Dana">Dana - 083821103983</option>
+    <option value="Gopay">Gopay - 085232443263</option>
+    <option value="Mandiri">Mandiri - 1060018413875</option>
+    <option value="BRI">BRImo - 0051 0126 8017 503</option>
+    <option value="SeaBank">SeaBank - 901546407976</option>
+  </select>
+
+  <label>Total Harga:</label>
+  <input type="text" id="harga" readonly>
+
+  <button onclick="lanjut()">Order Sekarang</button>
+</div>
+
+<div class="container hidden" id="form-step-2">
+  <h2>Langkah Pembayaran</h2>
+  <p><strong>Silakan transfer ke rekening sesuai metode yang dipilih.</strong></p>
+  <p>Total: <span id="finalHarga"></span></p>
+  <label>Upload Bukti Transfer:</label>
+  <input type="file" id="bukti" required>
+  <button onclick="kirimWA()">Kirim & Selesai</button>
+</div>
+
+<script>
+  function updateHarga() {
+    const jumlah = parseInt(document.getElementById('jumlah').value);
+    const harga = jumlah * 2600;
+    document.getElementById('harga').value = isNaN(harga) ? '' : 'Rp ' + harga.toLocaleString();
+  }
+
+  function lanjut() {
+    const nama = document.getElementById('gtName').value;
+    const world = document.getElementById('gtWorld').value;
+    const phone = document.getElementById('phone').value;
+    const jumlah = document.getElementById('jumlah').value;
+
+    if (!nama || !world || !phone || !jumlah) {
+      alert('Harap isi semua kolom.');
+      return;
+    }
+
+    document.getElementById('form-step-1').classList.add('hidden');
+    document.getElementById('form-step-2').classList.remove('hidden');
+    document.getElementById('finalHarga').innerText = document.getElementById('harga').value;
+  }
+
+  function kirimWA() {
+    const nama = document.getElementById('gtName').value;
+    const world = document.getElementById('gtWorld').value;
+    const phone = document.getElementById('phone').value;
+    const jumlah = document.getElementById('jumlah').value;
+    const metode = document.getElementById('metode').value;
+    const harga = document.getElementById('harga').value;
+
+    const apiKey = "5579908";
+    const noTujuan = "6285232443263";
+    const pesan = `Pesanan Baru:%0ANama: ${nama}%0AWorld: ${world}%0AHP: ${phone}%0AJumlah DL: ${jumlah}%0AMetode: ${metode}%0ATotal: ${harga}`;
+    
+    const url = `https://api.callmebot.com/whatsapp.php?phone=${noTujuan}&text=${pesan}&apikey=${apiKey}`;
+    window.open(url, '_blank');
+  }
+</script>
+
+</body>
+</html>
