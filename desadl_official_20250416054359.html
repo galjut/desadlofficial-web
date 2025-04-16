@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DesaDL.Official - Jual Beli DL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px 10px;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        #payment-info {
+            display: none;
+            background-color: #e9f5ff;
+            padding: 15px;
+            margin-top: 20px;
+            border: 1px solid #007bff;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>DesaDL.Official</h1>
+    <p>Jual Beli Diamond Lock Growtopia Terpercaya</p>
+</header>
+
+<main>
+    <div class="form-container">
+        <h2>Pesan DL</h2>
+        <form id="dlForm">
+            <label for="growtopiaName">Nama Growtopia:</label>
+            <input type="text" id="growtopiaName" required>
+
+            <label for="growtopiaWorld">Dunia Growtopia:</label>
+            <input type="text" id="growtopiaWorld" required>
+
+            <label for="phoneNumber">No HP Pembeli:</label>
+            <input type="tel" id="phoneNumber" required>
+
+            <label for="transactionType">Jenis Transaksi:</label>
+            <select id="transactionType">
+                <option value="beli">Beli DL (Rp 2.600)</option>
+                <option value="jual">Jual DL (Rp 2.400)</option>
+            </select>
+
+            <label for="amount">Jumlah DL:</label>
+            <input type="number" id="amount" min="1" required>
+
+            <label for="totalPrice">Total Harga (Rp):</label>
+            <input type="text" id="totalPrice" disabled>
+
+            <button type="button" onclick="showPayment()">Order</button>
+        </form>
+
+        <div id="payment-info">
+            <h3>Langkah Pembayaran</h3>
+            <p>Silakan transfer ke salah satu rekening berikut:</p>
+            <ul>
+                <li><strong>DANA:</strong> 083821103983</li>
+                <li><strong>GoPay:</strong> 085232443263</li>
+                <li><strong>Mandiri:</strong> 1060018413875</li>
+                <li><strong>BRImo:</strong> 0051 0126 8017 503</li>
+                <li><strong>SeaBank:</strong> 901546407976</li>
+            </ul>
+            <p>Setelah transfer, harap konfirmasi ke admin.</p>
+        </div>
+    </div>
+</main>
+
+<script>
+    const transactionType = document.getElementById('transactionType');
+    const amountInput = document.getElementById('amount');
+    const totalPrice = document.getElementById('totalPrice');
+
+    transactionType.addEventListener('change', calculateTotal);
+    amountInput.addEventListener('input', calculateTotal);
+
+    function calculateTotal() {
+        const amount = parseInt(amountInput.value) || 0;
+        const type = transactionType.value;
+        let pricePerDL = type === 'beli' ? 2600 : 2400;
+        totalPrice.value = amount * pricePerDL;
+    }
+
+    function showPayment() {
+        const name = document.getElementById('growtopiaName').value.trim();
+        const world = document.getElementById('growtopiaWorld').value.trim();
+        const phone = document.getElementById('phoneNumber').value.trim();
+        const amount = document.getElementById('amount').value.trim();
+
+        if (name && world && phone && amount) {
+            document.getElementById('payment-info').style.display = 'block';
+        } else {
+            alert("Semua kolom wajib diisi!");
+        }
+    }
+</script>
+
+</body>
+</html>
