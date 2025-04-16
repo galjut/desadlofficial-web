@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DesaDL.Official - Order DL</title>
+    <style>
+        body { font-family: sans-serif; background: #121212; color: #fff; padding: 20px; }
+        input, select, button { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none; }
+        button { background-color: #00c853; color: white; font-weight: bold; cursor: pointer; }
+        .container { max-width: 400px; margin: auto; background: #1e1e1e; padding: 20px; border-radius: 10px; }
+        .logo { text-align: center; font-size: 1.5em; margin-bottom: 20px; }
+        .footer { margin-top: 20px; font-size: 0.8em; text-align: center; color: #888; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">DesaDL.Official</div>
+        <form id="orderForm">
+            <label>Jumlah DL</label>
+            <input type="number" id="jumlah" min="1" required>
+            
+            <label>Nick Growtopia</label>
+            <input type="text" id="nick" required>
+
+            <label>Nama Pengirim</label>
+            <input type="text" id="nama" required>
+
+            <label>Metode Pembayaran</label>
+            <select id="metode" required>
+                <option value="Mandiri">Mandiri</option>
+                <option value="BRImo">BRImo</option>
+                <option value="DANA">DANA</option>
+                <option value="GoPay">GoPay</option>
+                <option value="SeaBank">SeaBank</option>
+            </select>
+
+            <button type="submit">Order Sekarang</button>
+        </form>
+        <div class="footer">
+            © 2025 DesaDL.Official — All Rights Reserved
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("orderForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const jumlah = parseInt(document.getElementById("jumlah").value);
+            const nick = document.getElementById("nick").value;
+            const nama = document.getElementById("nama").value;
+            const metode = document.getElementById("metode").value;
+            const total = jumlah * 2600;
+
+            const params = new URLSearchParams();
+            params.append("jumlah", jumlah);
+            params.append("nick", nick);
+            params.append("nama", nama);
+            params.append("metode", metode);
+            params.append("total", total);
+
+            window.location.href = "pembayaran.html?" + params.toString();
+        });
+    </script>
+</body>
+</html>
