@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DesaDL.Official</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+        main {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section h2 {
+            color: #007bff;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            margin-top: 15px;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 20px;
+            padding: 15px;
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .hidden {
+            display: none;
+        }
+        .payment-info {
+            background-color: #f2f2f2;
+            padding: 15px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header>DesaDL.Official</header>
+    <main>
+        <div class="section">
+            <h2>Beli DL (Diamond Lock)</h2>
+            <label for="jumlahBeli">Jumlah DL yang dibeli:</label>
+            <input type="number" id="jumlahBeli" placeholder="Masukkan jumlah DL">
+
+            <label for="namaGT">Nama Growtopia:</label>
+            <input type="text" id="namaGT" placeholder="Contoh: NamaKamu123">
+
+            <label for="worldGT">World Growtopia:</label>
+            <input type="text" id="worldGT" placeholder="Contoh: DESADL123">
+
+            <label for="noHP">No HP Pembeli:</label>
+            <input type="text" id="noHP" placeholder="Contoh: 08xxxxxxxxxx">
+
+            <p>Total harga: <span id="totalHarga">0</span> IDR</p>
+            <button onclick="lanjutPembayaran()">Order Sekarang</button>
+        </div>
+
+        <div class="section hidden" id="pembayaranSection">
+            <h2>Langkah Pembayaran</h2>
+            <div class="payment-info">
+                <p>Silakan transfer ke salah satu rekening berikut:</p>
+                <ul>
+                    <li><b>DANA:</b> 083821103983</li>
+                    <li><b>GoPay:</b> 085232443263</li>
+                    <li><b>Bank Mandiri:</b> 1060018413875</li>
+                    <li><b>BRImo:</b> 0051 0126 8017 503</li>
+                    <li><b>SeaBank:</b> 901546407976</li>
+                </ul>
+                <p>Setelah transfer, harap tunggu maksimal 5 menit.</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function lanjutPembayaran() {
+            const jumlah = parseInt(document.getElementById('jumlahBeli').value);
+            const nama = document.getElementById('namaGT').value.trim();
+            const world = document.getElementById('worldGT').value.trim();
+            const nohp = document.getElementById('noHP').value.trim();
+
+            if (!jumlah || !nama || !world || !nohp) {
+                alert("Semua kolom wajib diisi!");
+                return;
+            }
+
+            const total = jumlah * 2600;
+            document.getElementById('totalHarga').innerText = total.toLocaleString();
+
+            document.querySelector('.section').classList.add('hidden');
+            document.getElementById('pembayaranSection').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
